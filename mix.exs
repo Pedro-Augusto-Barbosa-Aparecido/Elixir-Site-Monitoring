@@ -6,7 +6,7 @@ defmodule SiteMonitoring.MixProject do
       app: :site_monitoring,
       version: "0.1.0",
       elixir: "~> 1.13",
-      start_permanent: Mix.env() == :prod,
+      start_permanent: Mix.env() == :dev,
       deps: deps()
     ]
   end
@@ -23,6 +23,7 @@ defmodule SiteMonitoring.MixProject do
     [
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
+      {:httpoison, "~> 1.8"}  
     ]
   end
 end
