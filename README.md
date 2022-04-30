@@ -1,6 +1,6 @@
 # SiteMonitoring
 
-<p align="center">Project Under Construction</p>
+<p align="center">🚧 Application in construction 🚧</p>
 
 ## Installation
 
