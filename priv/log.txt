@@ -1,0 +1,6 @@
+[2022/5/1 - 14:39:1] LOG: Site: https://www.google.com.br - Result: 200 | Title: OK Desc: A requisição foi bem sucedida.
+[2022/5/1 - 14:39:1] LOG: Site: https://www.yoube.com.br - Result: Não existe esse dominio
+[2022/5/1 - 14:40:0] LOG: Site: https://www.google.com.br - Result: 200 | Title: OK Desc: A requisição foi bem sucedida.
+[2022/5/1 - 14:40:0] LOG: Site: https://www.yoube.com.br - Result: Não existe esse dominio
+[2022/5/1 - 14:41:0] LOG: Site: https://www.google.com.br - Result: 200 | Title: OK Desc: A requisição foi bem sucedida.
+[2022/5/1 - 14:41:0] LOG: Site: https://www.yoube.com.br - Result: Não existe esse dominio
