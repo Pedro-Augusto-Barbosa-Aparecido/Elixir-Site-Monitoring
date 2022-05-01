@@ -4,14 +4,16 @@ defmodule SiteMonitoring.RequestOnSites do
         do_requests(sites)
     end
     defp my_request(site) do
+        log_message = ""
         case HTTPoison.get(site) do
-            {:ok, %HTTPoison.Response{status_code: 404}} -> IO.puts("Site fora do ar 'NÃO ENCONTRADO'") 
-            {:ok, %HTTPoison.Response{status_code: 500}} -> IO.puts("Site fora do ar 'ERRO NO SERVIDOR'") 
-            {:ok, %HTTPoison.Response{status_code: status}} -> IO.puts status
-            {:error, %HTTPoison.Error{reason: :nxdomain}} -> IO.puts("Não existe esse dominio")
-            {:error, %HTTPoison.Error{reason: :econnrefused}} -> IO.puts("Conexão recusada ou não autorizada")
+            {:ok, %HTTPoison.Response{status_code: status}} -> SiteMonitoring.ExportLog.write_on_file(generate_log_message(:ok, log_message, site, "#{status}"))
+            {:error, %HTTPoison.Error{reason: :nxdomain}} -> SiteMonitoring.ExportLog.write_on_file(generate_log_message(:nxdomain, log_message, site))
+            {:error, %HTTPoison.Error{reason: :econnrefused}} -> SiteMonitoring.ExportLog.write_on_file(generate_log_message(:econnrefused, log_message, site))
         end
     end
+    defp generate_log_message(:ok, msg, site, status), do: msg <> SiteMonitoring.ExportLog.export(:ok, site, status) <> "\n"
+    defp generate_log_message(:nxdomain, msg, site), do: msg <> SiteMonitoring.ExportLog.export(:error, :nxdomain, site) <> "\n"
+    defp generate_log_message(:econnrefused, msg, site), do: msg <> SiteMonitoring.ExportLog.export(:error, :econnrefused, site) <> "\n"
     defp do_requests([]), do: :ok
     defp do_requests(sites) do
         [site | sites] = sites

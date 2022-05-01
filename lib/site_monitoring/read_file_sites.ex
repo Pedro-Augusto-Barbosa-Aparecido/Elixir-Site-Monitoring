@@ -19,6 +19,29 @@ defmodule SiteMonitoring.ReadFile do
         IO.puts("No path or definition of default path")
         :error
     end
+    def read_http_csv_file do
+        path = Path.join([
+            File.cwd!(),
+            "priv\\http_codes.csv"
+        ])
+        codes = File.read!(path) |> String.split("\n")
+        treaty_http_codes(codes, [])
+    end
+    defp treaty_http_codes([], codes_treated), do: codes_treated 
+    defp treaty_http_codes(codes, codes_treated) do
+        [el | codes] = codes
+
+        el = String.split(el, ";")
+
+        [code | texts] = el
+        [title | texts] = texts
+        [descrip | texts] = texts
+
+        descrip = String.trim(descrip, "\r")
+
+        treaty_http_codes(codes, codes_treated ++ [%{code: code, title: title, description: descrip}])
+
+    end
     defp treaty_sites([], sites_treated, _), do: sites_treated
     defp treaty_sites(sites, sites_treated, method) do
         [site | sites] = sites
